@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+
+    <h1>Welcome</h1>
+    {% if current_user %}            
+        <a href="/post/add">Add a post</a>
+    {% endif %}
+
+
+
+    {% if current_user.is_invester %}
+        Hello {{ current_user.name }} you are viewing post as invester.
+        <div>
+            
+        </div>
+    {% elseif current_user.is_student %}
+        Hello {{ current_user.name }} you are viewing post as student.
+    {% else %}
+        You can only view Emergency Posts. To add post or View other posts please
+        <a href="/signup/new">Sign up</a> or 
+        <a href="/login">log in</a>
+    
+    {% endif %}
+
+    
+
+    {% for details in postDetails %}
+        <p>{{ details.name }} posted on {{ details.post_type }}</p>
+        <h3>{{ details.post_title }}</h3>
+        <pre>
+            <p>{{ details.post_discription }}</p>
+        </pre>
+    {% endfor %}
+
+
+    
+
+
+{% endblock %}

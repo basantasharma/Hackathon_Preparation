@@ -11,6 +11,12 @@
         <dd>{{ user.name }}</dd>
         <dt>email</dt>
         <dd>{{ user.email }}</dd>
+        <dt>Signup Category</dt>
+        {% if user.is_student %}
+        <dd>Student</dd>
+        {% else %}
+        <dd>Invester</dd>
+        {% endif %}
     </dl>
 
     <a href="/profile/edit">Edit</a>

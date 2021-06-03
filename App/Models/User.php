@@ -47,14 +47,26 @@ class User extends \Core\Model
 
         if (empty($this->errors)) {
 
+            if($this->category == "Signup as Student")
+            {
+                $Student = true;
+                $Invester = false;
+            }
+            if($this->category == "Signup as Invester")
+            {
+                $Student = false;
+                $Invester = true;
+            }
+
+
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
             $token = new Token();
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
 
-            $sql = 'INSERT INTO users (name, email, password_hash, activation_hash)
-                    VALUES (:name, :email, :password_hash, :activation_hash)';
+            $sql = 'INSERT INTO users (name, email, password_hash, activation_hash, is_student, is_invester)
+                    VALUES (:name, :email, :password_hash, :activation_hash, :is_student, :is_invester)';
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -63,7 +75,9 @@ class User extends \Core\Model
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
-
+            $stmt->bindValue(':is_student', $Student, PDO::PARAM_BOOL);
+            $stmt->bindValue(':is_invester', $Invester, PDO::PARAM_BOOL);
+            
             return $stmt->execute();
         }
 
@@ -409,7 +423,7 @@ class User extends \Core\Model
     public function updateProfile($data)
     {
         $this->name = $data['name'];
-        $this->email = $data['email'];
+        //$this->email = $data['email'];
 
         // Only validate and update the password if a value provided
         if ($data['password'] != '') {

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+
+
+{% block body %}
+   
+    <div class="w-50  mx-auto border p-4 my-4">
+
+        <h1>Publish a post </h1>
+
+        {% if userPost.errorsPost is not empty %}
+            <p>Errors:</p>
+            <ul>
+                {% for error in userPost.errorsPost %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
+        <form method="post" action="/post/create" id="formSignup">
+            
+            <div class="form-group">
+                <label for="inputTitle">Title</label>
+                <input id="inputTitle" name="title" placeholder="Title" autofocus required class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="sel1">Select Post Type:</label>
+                <select class="form-control" id="sel1" name="type" required>
+                    {% if current_user.is_student %}
+                    <option value="Seeking for invester">Seeking for invester</option>
+                    {% elseif current_user.is_invester %}
+                    <option value="Seeking to invest">Seeking to invest</option>
+                    {% endif %}
+                    <option value="Emergency Help">Emergency Help</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputPostDetails">Describe your post brifely.</label>
+                <textarea rows="10" id="inputPostDetails" name="details" placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need." 
+                required type="text" class="form-control" ></textarea>
+            </div>        
+            
+            <button type="submit" class="btn btn-default">Publish post</button>
+            
+        </form>
+        
+    </div>
+        {% endblock %}
