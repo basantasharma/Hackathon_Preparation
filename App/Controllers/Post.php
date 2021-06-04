@@ -42,7 +42,7 @@ class Post extends \Core\Controller
             'postDetails' => $postDetails
         ]);
 
-        var_dump($postDetails);
+        //var_dump($postDetails);
         
     }
 

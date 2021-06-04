@@ -13,9 +13,7 @@
 
     {% if current_user.is_invester %}
         Hello {{ current_user.name }} you are viewing post as invester.
-        <div>
-            
-        </div>
+        
     {% elseif current_user.is_student %}
         Hello {{ current_user.name }} you are viewing post as student.
     {% else %}
@@ -26,14 +24,39 @@
     {% endif %}
 
     
-
+    
     {% for details in postDetails %}
-        <p>{{ details.name }} posted on {{ details.post_type }}</p>
-        <h3>{{ details.post_title }}</h3>
-        <pre>
-            <p>{{ details.post_discription }}</p>
-        </pre>
+        {% if details.post_type == 'Emergency Help' %}
+        <div class="w-50  mx-auto border p-4 my-4">
+            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+            <pre class=" border">
+                <h3>{{ details.post_title }}</h3>
+                <p>{{ details.post_discription }}</p>
+            </pre>
+        </div>
+        {% endif %}
+
+        {% if details.post_type == 'Seeking to invest' and current_user.is_student %}
+            <div class="w-50  mx-auto border p-4 my-4">
+                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+                <pre class=" border">
+                    <h3>{{ details.post_title }}</h3>
+                    <p>{{ details.post_discription }}</p>
+                </pre>
+            </div>
+        {% endif %}
+
+        {% if details.post_type == 'Seeking for invester' and current_user.is_invester %}
+            <div class="w-50  mx-auto border p-4 my-4">
+                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+                <pre class=" border">
+                    <h3>{{ details.post_title }}</h3>
+                    <p>{{ details.post_discription }}</p>
+                </pre>
+            </div>
+        {% endif %}
     {% endfor %}
+    
 
 
     
