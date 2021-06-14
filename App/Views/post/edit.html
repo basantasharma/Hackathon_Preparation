@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Edit Post
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="/post/start-edit?post_id={{ post_details.post_id }}" id="formSignup">
+                
+        <div class="form-group">
+            <label for="inputTitle">Title</label>
+            <input id="inputTitle" name="title" placeholder="Title" autofocus required class="form-control"  value="{{post_details.post_title}}"/>
+        </div>
+        <div class="form-group">
+            <label for="sel1">Select Post Type:</label>
+            <select class="form-control" id="sel1" name="type" required>
+                {% if current_user.is_student %}
+                <option value="Seeking for invester">Seeking for invester</option>
+                {% elseif current_user.is_invester %}
+                <option value="Seeking to invest">Seeking to invest</option>
+                {% endif %}
+                <option value="Emergency Help">Emergency Help</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="inputPostDetails">Describe your post brifely.</label>
+            <textarea rows="10" id="inputPostDetails" name="details"  placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need." 
+            required type="text" class="form-control" >{{ post_details.post_discription }}</textarea>
+        </div>        
+        
+        <button type="submit" class="btn btn-defult">Update post</button> 
+        <a href="/post/delete-post?post_id={{ post_details.post_id }}">Delete Post</a>       
+    </form>
+
+    
+
+
+{% endblock %}

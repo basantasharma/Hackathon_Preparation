@@ -65,14 +65,17 @@ class User extends \Core\Model
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
 
-            $sql = 'INSERT INTO users (name, email, password_hash, activation_hash, is_student, is_invester)
-                    VALUES (:name, :email, :password_hash, :activation_hash, :is_student, :is_invester)';
+            $sql = 'INSERT INTO users (name, email, gender, image, dob, password_hash, activation_hash, is_student, is_invester)
+                    VALUES (:name, :email, :gender, :image, :dob, :password_hash, :activation_hash, :is_student, :is_invester)';
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
+            $stmt->bindValue(':gender', $this->gender, PDO::PARAM_STR);
+            $stmt->bindValue(':image', $this->image, PDO::PARAM_STR);
+            $stmt->bindValue(':dob', $this->dob, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
             $stmt->bindValue(':is_student', $Student, PDO::PARAM_BOOL);
@@ -119,6 +122,16 @@ class User extends \Core\Model
                 $this->errors[] = 'Password needs at least one number';
             }
 
+        }
+
+        //Dateofbirth
+        if(isset($this->dob))
+        {
+            //$this->errors[] = 'Date of birth is required';
+        }
+        else
+        {
+            $this->errors[] = 'Date of birth is required';
         }
     }
 

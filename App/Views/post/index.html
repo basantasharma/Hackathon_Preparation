@@ -4,18 +4,19 @@
 
 {% block body %}
 
-    <h1>Welcome</h1>
+    <!-- <h1 class="text-center">Welcome</h1> -->
     {% if current_user %}            
-        <a href="/post/add">Add a post</a>
+        <h5><a  href="/post/add">Add a post</a></h5><br>
     {% endif %}
 
 
 
     {% if current_user.is_invester %}
-        Hello {{ current_user.name }} you are viewing post as invester.
-        
+        Hello <b>{{ current_user.name }} </b>you are viewing post as invester.
+ 
     {% elseif current_user.is_student %}
         Hello {{ current_user.name }} you are viewing post as student.
+    
     {% else %}
         You can only view Emergency Posts. To add post or View other posts please
         <a href="/signup/new">Sign up</a> or 
@@ -29,10 +30,15 @@
         {% if details.post_type == 'Emergency Help' %}
         <div class="w-50  mx-auto border p-4 my-4">
             <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+            <!-- {% if current_user.id == details.user_id %}
+                <a href="#">edit</a>
+            {% endif %} -->
             <pre class=" border">
                 <h3>{{ details.post_title }}</h3>
                 <p>{{ details.post_discription }}</p>
+                
             </pre>
+            <!-- <button type="submit">Help</button> -->
         </div>
         {% endif %}
 
@@ -51,6 +57,22 @@
                 <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
                 <pre class=" border">
                     <h3>{{ details.post_title }}</h3>
+                    <p>{{ details.post_discription }}</p>
+                </pre>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {% for details in user_Posts %}
+        {% if details.user_id == current_user.id %}
+            <div class="w-50  mx-auto border p-4 my-4">
+                <p>
+                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b>
+                    <a href="/post/edit?post_id={{ details.post_id }}">Edit this post</a> <br>
+                    Posted on {{ details.post_date }}
+                </p>
+                <pre class=" border">
+                    <h3>{{ details.post_title }} </h3>
                     <p>{{ details.post_discription }}</p>
                 </pre>
             </div>
