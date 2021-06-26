@@ -45,28 +45,16 @@ class User extends \Core\Model
     {
         $this->validate();
 
-        if (empty($this->errors)) {
-
-            if($this->category == "Signup as Student")
-            {
-                $Student = true;
-                $Invester = false;
-            }
-            if($this->category == "Signup as Invester")
-            {
-                $Student = false;
-                $Invester = true;
-            }
-
-
+        if (empty($this->errors)) 
+        {
             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
 
             $token = new Token();
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
 
-            $sql = 'INSERT INTO users (name, email, gender, image, dob, password_hash, activation_hash, is_student, is_invester)
-                    VALUES (:name, :email, :gender, :image, :dob, :password_hash, :activation_hash, :is_student, :is_invester)';
+            $sql = 'INSERT INTO users (name, email, gender, image, dob, password_hash, activation_hash, catogery)
+                    VALUES (:name, :email, :gender, :image, :dob, :password_hash, :activation_hash, :catogery)';
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
@@ -74,13 +62,12 @@ class User extends \Core\Model
             $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':gender', $this->gender, PDO::PARAM_STR);
-            $stmt->bindValue(':image', $this->image, PDO::PARAM_STR);
+            $stmt->bindValue(':image', $this->profile_image, PDO::PARAM_STR);
             $stmt->bindValue(':dob', $this->dob, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
-            $stmt->bindValue(':is_student', $Student, PDO::PARAM_BOOL);
-            $stmt->bindValue(':is_invester', $Invester, PDO::PARAM_BOOL);
-            
+            $stmt->bindValue(':catogery', $this->catogery, PDO::PARAM_STR);
+            //$stmt->bindValue(':is_invester', $Invester, PDO::PARAM_BOOL);
             return $stmt->execute();
         }
 
@@ -132,6 +119,31 @@ class User extends \Core\Model
         else
         {
             $this->errors[] = 'Date of birth is required';
+        }
+
+        //image check
+        if(is_uploaded_file($_FILES['image']['tmp_name']))
+        {
+            if (($_FILES['image']['type'] != "image/jpeg") && ($_FILES['image']['type'] != "image/gif") && ($_FILES['image']['type'] != "image/jpg") && ($_FILES['image']['type'] != "image/png")) 
+            {
+                $this->errors[] = 'Invalid file type';
+            }
+            else if ($_FILES['image']['size'] > 2097152) 
+            {
+                $this->errors[] = 'File size exceeded';
+            }
+            else 
+            {
+                $target_file = basename($_FILES["image"]["name"]);
+                $extention = pathinfo($target_file,PATHINFO_EXTENSION);
+                $filename = time().'.'.$extention;
+                $this->profile_image = $filename;
+                $result = move_uploaded_file($_FILES['image']['tmp_name'],"images/profile/" .$filename);
+            }
+        }
+        else
+        {
+            $this->profile_image = 'defult.jpg';
         }
     }
 

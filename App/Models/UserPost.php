@@ -43,7 +43,7 @@ class UserPost extends \Core\Model
 
         if (empty($this->errorsPost)) 
         {
-            $sql = 'INSERT INTO user_posts (user_id, post_title, post_type, post_discription, post_date) 
+            $sql = 'INSERT INTO user_posts (user_id, title, catogery, discription, date) 
             VALUES(:user_id, :post_title, :post_type, :post_discription, :post_date)';
 
             $db = static::getDB();
@@ -133,7 +133,7 @@ class UserPost extends \Core\Model
     public static function getUserPostById($id)
     {
         $user = Auth::getUser();
-        $sql = 'SELECT * FROM user_posts WHERE post_id =:post_id AND user_id = :user_id';
+        $sql = 'SELECT * FROM user_posts WHERE id =:post_id AND user_id = :user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);

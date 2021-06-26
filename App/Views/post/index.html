@@ -11,7 +11,7 @@
 
 
 
-    {% if current_user.is_invester %}
+    {% if current_user.catogery == "Signup as student" %}
         Hello <b>{{ current_user.name }} </b>you are viewing post as invester.
  
     {% elseif current_user.is_student %}
@@ -27,37 +27,37 @@
     
     
     {% for details in postDetails %}
-        {% if details.post_type == 'Emergency Help' %}
+        {% if details.catogery == 'Emergency Help' %}
         <div class="w-50  mx-auto border p-4 my-4">
-            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
             <!-- {% if current_user.id == details.user_id %}
                 <a href="#">edit</a>
             {% endif %} -->
             <pre class=" border">
-                <h3>{{ details.post_title }}</h3>
-                <p>{{ details.post_discription }}</p>
+                <h3>{{ details.title }}</h3>
+                <p>{{ details.discription }}</p>
                 
             </pre>
             <!-- <button type="submit">Help</button> -->
         </div>
         {% endif %}
 
-        {% if details.post_type == 'Seeking to invest' and current_user.is_student %}
+        {% if details.catogery == 'Seeking to invest' and current_user.catogery == "Signup as student" %}
             <div class="w-50  mx-auto border p-4 my-4">
-                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
                 <pre class=" border">
-                    <h3>{{ details.post_title }}</h3>
-                    <p>{{ details.post_discription }}</p>
+                    <h3>{{ details.title }}</h3>
+                    <p>{{ details.discription }}</p>
                 </pre>
             </div>
         {% endif %}
 
-        {% if details.post_type == 'Seeking for invester' and current_user.is_invester %}
+        {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as student" %}
             <div class="w-50  mx-auto border p-4 my-4">
-                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b></p>
+                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
                 <pre class=" border">
-                    <h3>{{ details.post_title }}</h3>
-                    <p>{{ details.post_discription }}</p>
+                    <h3>{{ details.title }}</h3>
+                    <p>{{ details.discription }}</p>
                 </pre>
             </div>
         {% endif %}
@@ -67,13 +67,13 @@
         {% if details.user_id == current_user.id %}
             <div class="w-50  mx-auto border p-4 my-4">
                 <p>
-                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b>
-                    <a href="/post/edit?post_id={{ details.post_id }}">Edit this post</a> <br>
-                    Posted on {{ details.post_date }}
+                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b>
+                    <a href="/post/edit?post_id={{ details.id }}">Edit this post</a> <br>
+                    Posted on {{ details.date }}
                 </p>
                 <pre class=" border">
-                    <h3>{{ details.post_title }} </h3>
-                    <p>{{ details.post_discription }}</p>
+                    <h3>{{ details.title }} </h3>
+                    <p>{{ details.discription }}</p>
                 </pre>
             </div>
         {% endif %}

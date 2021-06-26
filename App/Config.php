@@ -20,7 +20,7 @@ class Config
      * Database name
      * @var string
      */
-    const DB_NAME = 'User_details';
+    const DB_NAME = 'hackathon';
 
     /**
      * Database user
@@ -32,7 +32,7 @@ class Config
      * Database password
      * @var string
      */
-    const DB_PASSWORD = 'Ba@Ga@4405';
+    const DB_PASSWORD = '';
 
     /**
      * Show or hide error messages on screen

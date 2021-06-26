@@ -5,7 +5,7 @@
 {% block body %}
 
     <h1>Profile</h1>
-    <img src="{{ current_user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
+    <img src="/images/profile/{{ current_user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
 
     <dl class="dl-horizontal">
         <dt>Name</dt>
@@ -13,7 +13,7 @@
         <dt>email</dt>
         <dd>{{ user.email }}</dd>
         <dt>Signup Category</dt>
-        {% if user.is_student %}
+        {% if user.catogery == "Signup as student" %}
         <dd>Student</dd>
         {% else %}
         <dd>Invester</dd>
@@ -28,11 +28,11 @@
             <div class="w-50  mx-auto border p-4 my-4">
                 <p>
                     <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b>
-                    <a href="/post/edit?post_id={{ details.post_id }}">Edit this post</a>
+                    <a href="/post/edit?post_id={{ details.id }}">Edit this post</a>
                 </p>
                 <pre class=" border">
-                    <h3>{{ details.post_title }} </h3>
-                    <p>{{ details.post_discription }}</p>
+                    <h3>{{ details.title }} </h3>
+                    <p>{{ details.discription }}</p>
                 </pre>
             </div>
         {% endif %}
