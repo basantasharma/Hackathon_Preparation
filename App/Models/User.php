@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Auth;
 use PDO;
 use \App\Token;
 use \App\Mail;
@@ -52,7 +53,30 @@ class User extends \Core\Model
             $token = new Token();
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
-
+            
+            if(is_uploaded_file($_FILES['image']['tmp_name']))
+            {
+                $target_file = basename($_FILES["image"]["name"]);
+                $extention = pathinfo($target_file,PATHINFO_EXTENSION);
+                $filename = time().'.'.$extention;
+                $this->profile_image = $filename;
+                $result = move_uploaded_file($_FILES['image']['tmp_name'],"images/profile/" .$filename);
+            }
+            else
+            {
+                if($this->gender == "male" )
+                {
+                    $this->profile_image = 'defaultMale.png';
+                }
+                else if($this->gender == "female")
+                {
+                    $this->profile_image = 'defaultFemale.png';
+                }
+                else
+                {
+                    $this->profile_image = 'nogender.png';
+                }
+            }
             $sql = 'INSERT INTO users (name, email, gender, image, dob, password_hash, activation_hash, catogery)
                     VALUES (:name, :email, :gender, :image, :dob, :password_hash, :activation_hash, :catogery)';
 
@@ -95,8 +119,8 @@ class User extends \Core\Model
         }
 
         // Password
-        if (isset($this->password)) {
-
+        if (isset($this->password)) 
+        {
             if (strlen($this->password) < 6) {
                 $this->errors[] = 'Please enter at least 6 characters for the password';
             }
@@ -128,23 +152,26 @@ class User extends \Core\Model
             {
                 $this->errors[] = 'Invalid file type';
             }
-            else if ($_FILES['image']['size'] > 2097152) 
+            if ($_FILES['image']['size'] > 2097152)
             {
                 $this->errors[] = 'File size exceeded';
             }
-            else 
-            {
-                $target_file = basename($_FILES["image"]["name"]);
-                $extention = pathinfo($target_file,PATHINFO_EXTENSION);
-                $filename = time().'.'.$extention;
-                $this->profile_image = $filename;
-                $result = move_uploaded_file($_FILES['image']['tmp_name'],"images/profile/" .$filename);
-            }
         }
-        else
-        {
-            $this->profile_image = 'defult.jpg';
-        }
+        // else
+        // {   
+        //     if($this->gender == "male" )
+        //     {
+        //         $this->profile_image = 'defaultMale.png';
+        //     }
+        //     else if($this->gender == "female")
+        //     {
+        //         $this->profile_image = 'defaultFemale.png';
+        //     }
+        //     else
+        //     {
+        //         $this->profile_image = 'nogender.png';
+        //     }
+        // }
     }
 
     /**
@@ -451,21 +478,37 @@ class User extends \Core\Model
         //$this->email = $data['email'];
 
         // Only validate and update the password if a value provided
-        if ($data['password'] != '') {
+        if ($data['password'] != '') 
+        {
             $this->password = $data['password'];
+        }
+        //only validate and update profile picture if provided
+        if (is_uploaded_file($_FILES['image']['tmp_name'])) 
+        {
+            $target_file = basename($_FILES["image"]["name"]);
+            $extention = pathinfo($target_file,PATHINFO_EXTENSION);
+            $filename = time().'.'.$extention;
+            $this->change_image = $filename;
+            $result = move_uploaded_file($_FILES['image']['tmp_name'],"images/profile/" .$filename);            
         }
 
         $this->validate();
 
-        if (empty($this->errors)) {
-
+        if (empty($this->errors)) 
+        {
             $sql = 'UPDATE users
                     SET name = :name,
                         email = :email';
 
             // Add password if it's set
-            if (isset($this->password)) {
+            if (isset($this->password)) 
+            {
                 $sql .= ', password_hash = :password_hash';
+            }
+            //add profile picture if it's set
+            if (isset($this->change_image)) 
+            {
+                $sql .= ', image = :image';
             }
 
             $sql .= "\nWHERE id = :id";
@@ -484,6 +527,11 @@ class User extends \Core\Model
                 $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
                 $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
 
+            }
+            // Add profile picture if it's set
+            if (isset($this->change_image)) 
+            {
+                $stmt->bindValue(':image', $this->change_image, PDO::PARAM_STR);
             }
 
             return $stmt->execute();

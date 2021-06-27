@@ -67,7 +67,7 @@
         </ul>
     {% endif %}
 
-    <form method="post" id="formProfile" action="/profile/update">
+    <form method="post" id="formProfile" action="/profile/update" enctype="multipart/form-data">
 
         <div class="form-group">
             <label for="inputName">Name</label>
@@ -76,6 +76,10 @@
         <div class="form-group">
             <label for="inputEmail">Email address</label>
             <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" disabled class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="image">help us to identify you</label>
+            <input type="file" class="form-control" id="image" name="image">
         </div>
         <div class="form-group">
             <label for="inputPassword">Password</label>

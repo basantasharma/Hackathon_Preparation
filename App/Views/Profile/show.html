@@ -27,7 +27,7 @@
         {% if details.user_id == current_user.id %}
             <div class="w-50  mx-auto border p-4 my-4">
                 <p>
-                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.post_type }}</b>
+                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b>
                     <a href="/post/edit?post_id={{ details.id }}">Edit this post</a>
                 </p>
                 <pre class=" border">

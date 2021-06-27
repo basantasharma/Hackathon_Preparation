@@ -97,10 +97,10 @@ class UserPost extends \Core\Model
         $title = $data['title'];
         $details = $data['details'];
         $sql = 'UPDATE user_posts 
-                SET post_type = :post_type,
-                    post_title = :post_title,
-                    post_discription = :post_discription
-                WHERE post_id = :post_id ';
+                SET catogery = :post_type,
+                    title = :post_title,
+                    discription = :post_discription
+                WHERE id = :post_id ';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);

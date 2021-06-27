@@ -14,7 +14,7 @@
     {% if current_user.catogery == "Signup as student" %}
         Hello <b>{{ current_user.name }} </b>you are viewing post as invester.
  
-    {% elseif current_user.is_student %}
+    {% elseif current_user.catogery == "Signup as invester" %}
         Hello {{ current_user.name }} you are viewing post as student.
     
     {% else %}
@@ -30,9 +30,9 @@
         {% if details.catogery == 'Emergency Help' %}
         <div class="w-50  mx-auto border p-4 my-4">
             <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
-            <!-- {% if current_user.id == details.user_id %}
-                <a href="#">edit</a>
-            {% endif %} -->
+            {% if current_user.id == details.user_id %}
+                <a href="/post/edit?post_id={{ details.id }}">edit</a>
+            {% endif %}
             <pre class=" border">
                 <h3>{{ details.title }}</h3>
                 <p>{{ details.discription }}</p>
@@ -52,7 +52,7 @@
             </div>
         {% endif %}
 
-        {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as student" %}
+        {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as invester" %}
             <div class="w-50  mx-auto border p-4 my-4">
                 <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
                 <pre class=" border">
@@ -62,26 +62,5 @@
             </div>
         {% endif %}
     {% endfor %}
-
-    {% for details in user_Posts %}
-        {% if details.user_id == current_user.id %}
-            <div class="w-50  mx-auto border p-4 my-4">
-                <p>
-                    <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b>
-                    <a href="/post/edit?post_id={{ details.id }}">Edit this post</a> <br>
-                    Posted on {{ details.date }}
-                </p>
-                <pre class=" border">
-                    <h3>{{ details.title }} </h3>
-                    <p>{{ details.discription }}</p>
-                </pre>
-            </div>
-        {% endif %}
-    {% endfor %}
-    
-
-
-    
-
 
 {% endblock %}
