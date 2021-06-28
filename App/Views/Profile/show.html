@@ -5,7 +5,7 @@
 {% block body %}
 
     <h1>Profile</h1>
-    <img src="/images/profile/{{ current_user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
+    <img src="/images/profile/{{ user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
 
     <dl class="dl-horizontal">
         <dt>Name</dt>
@@ -19,12 +19,13 @@
         <dd>Invester</dd>
         {% endif %}
     </dl>
+    {% if user.id == current_user.id %}
+        <a href="/profile/edit">Edit</a>
+    {% endif %}
 
-    <a href="/profile/edit">Edit</a>
-
-    <h1 class="text-center">Your Posts</h1>    
-    {% for details in user_Posts %}
-        {% if details.user_id == current_user.id %}
+    {% if details.user_id == current_user.id %}
+        <h1 class="text-center">Your Posts</h1>    
+        {% for details in user_Posts %}
             <div class="w-50  mx-auto border p-4 my-4">
                 <p>
                     <strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b>
@@ -35,7 +36,8 @@
                     <p>{{ details.discription }}</p>
                 </pre>
             </div>
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {# {% else current_user.catogery == "Signup as student" %} #}
+    {% endif %}
 
 {% endblock %}
