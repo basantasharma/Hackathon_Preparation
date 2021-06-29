@@ -539,4 +539,19 @@ class User extends \Core\Model
 
         return false;
     }
+
+    public static function search($search)
+    {
+        $sql = 'SELECT * FROM users WHERE name LIKE  :search OR email LIKE :search';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':search', $search, PDO::PARAM_STR);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }

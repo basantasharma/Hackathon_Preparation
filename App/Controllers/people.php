@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
 use Core\View;
 
 class People extends \Core\Controller
@@ -14,9 +15,19 @@ class People extends \Core\Controller
     public function searchAction()
     {
         $searched = $_GET['search'];
-        View::renderTemplate('/people/index.html', [
-            'searched' => $searched
-        ]);
+        $user_details = User::search($searched);
+        if($searched)
+        {
+
+            View::renderTemplate('/people/index.html', [
+                'searched' => $searched,
+                'user' => $user_details
+            ]);
+        }
+        else
+        {
+            $this->redirect('/post/show');
+        }
     }
 
 
