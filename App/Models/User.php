@@ -546,7 +546,7 @@ class User extends \Core\Model
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':search', $search, PDO::PARAM_STR);
+        $stmt->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
 
         $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
 
