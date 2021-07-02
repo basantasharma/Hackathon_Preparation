@@ -3,7 +3,39 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for details in user %}
-        1
+      <div class="col">
+        <div class="card h-100">
+          <img src="/images/profile/{{ details.image }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ details.name }}</h5>
+            <p class="card-text">
+              {{ details.gender }} <br>                
+              {{ details.email }}  <br>
+              {{ details.catogery }}
+            </p>
+          </div>
+        </div>
+      </div>
     {% endfor %}
+  </div>
+  {# <div class="card-group">
+    {% for details in user %}
+        <div class="card" style=" width: 18rem;">
+          <img src="/images/profile/{{ details.image }}" height='auto' class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ details.name }}</h5>
+            <p class="card-text">
+              {{ details.gender }} <br>                
+              {{ details.email }}  <br>
+              {{ details.catogery }}
+            </p>
+            <div class="card-footer">
+              <a href="#" class="btn">View Full Profile</a>
+            </div>
+          </div>
+        </div>      
+    {% endfor %}
+  </div> #}
 {% endblock %}

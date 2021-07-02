@@ -542,7 +542,7 @@ class User extends \Core\Model
 
     public static function search($search)
     {
-        $sql = 'SELECT * FROM users WHERE name LIKE  :search OR email LIKE :search';
+        $sql = 'SELECT name, email, gender, image, catogery, dob FROM users WHERE name LIKE :search OR email LIKE :search';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
