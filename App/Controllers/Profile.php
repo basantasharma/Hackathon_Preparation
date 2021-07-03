@@ -5,6 +5,8 @@ namespace App\Controllers;
 use \Core\View;
 use \App\Auth;
 use \App\Flash;
+use App\Models\User;
+use App\Models\UserPost;
 
 /**
  * Profile controller
@@ -33,8 +35,21 @@ class Profile extends Authenticated
      */
     public function showAction()
     {
+        $post = UserPost::getPost();
         View::renderTemplate('Profile/show.html', [
-            'user' => $this->user
+            'user' => $this->user,
+            'user_posts' => $post
+        ]);
+    }
+
+    //used for externally viewing profile only
+    public function viewAction()
+    {
+        $user = User::findByID($_GET['id']);
+        $post = UserPost::getPostByUserId($_GET['id']);
+        View::renderTemplate('Profile/show.html', [
+            'user' => $user,
+            'user_posts' => $post
         ]);
     }
 
@@ -60,7 +75,6 @@ class Profile extends Authenticated
         if ($this->user->updateProfile($_POST)) {
 
             Flash::addMessage('Changes saved');
-
             $this->redirect('/profile/show');
 
         } else {

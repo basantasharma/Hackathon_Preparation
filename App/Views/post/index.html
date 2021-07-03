@@ -6,15 +6,18 @@
 
     <!-- <h1 class="text-center">Welcome</h1> -->
     {% if current_user %}            
-        <h5><a  href="/post/add">Add a post</a></h5><br>
+        <h5><a class="btn" href="/post/add">Add a post</a></h5>
     {% endif %}
 
     {% if current_user.catogery == "Signup as student" %}
-        Hello <b>{{ current_user.name }} </b>you are viewing post as invester.
- 
+        <p class="alert alert-info">
+            Hello <b>{{ current_user.name }} </b>you are viewing post as Student.
+        </p>
+        
     {% elseif current_user.catogery == "Signup as invester" %}
-        Hello {{ current_user.name }} you are viewing post as student.
-    
+        <p class="alert alert-info">
+            Hello {{ current_user.name }} you are viewing post as Invester.
+        </p>
     {% else %}
         <p class="alert alert-info m-1">
             You can only view Emergency Posts. To add post or View other posts please
@@ -76,7 +79,7 @@
                             <!-- <button type="submit">Help</button> -->
                         </div>
                     {% endif %}
-                    {% if current_user.id == details.user_id %}
+                    {% if current_user.id == details.user_id and details.catogery != "Emergency Help" %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
                                 <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>

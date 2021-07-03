@@ -74,6 +74,8 @@ class UserPost extends \Core\Model
 
     }
 
+    //gets all post from database, 
+    //used for Post Action only
     public static function getPost()
     {
         $sql = 'SELECT up.*, u.name FROM user_posts AS up INNER JOIN users AS u
@@ -90,6 +92,7 @@ class UserPost extends \Core\Model
         return $stmt->fetchAll();
     }
     
+    //used when update Action is called
     public static function updatepost($data, $post_id)
     {
         //var_dump($data);
@@ -118,6 +121,7 @@ class UserPost extends \Core\Model
             return false;
     }
 
+    //used when delete Action is called
     public static function deletePost($post_id)
     {
         $sql = 'DELETE FROM user_posts WHERE post_id =:post_id';
@@ -130,6 +134,7 @@ class UserPost extends \Core\Model
         $stmt->execute();
     }
 
+    //used while edit Acion is called
     public static function getUserPostById($id)
     {
         $user = Auth::getUser();
@@ -159,5 +164,21 @@ class UserPost extends \Core\Model
             return false;
         }
     } 
+
+    //used for profile viewing and many more
+    public static function getPostByUserId($id)
+    {
+        $sql = 'SELECT * FROM user_posts WHERE user_id =:user_id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':user_id', $id, PDO::PARAM_INT);
+
+        $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
+
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 
 }

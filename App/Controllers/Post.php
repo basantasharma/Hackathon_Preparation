@@ -58,6 +58,7 @@ class Post extends \Core\Controller
         }
         else
         {
+            // $user = Auth::getUser();
             $this->redirect('/profile/show');
         }
     }
@@ -68,7 +69,7 @@ class Post extends \Core\Controller
         $edit = UserPost::updatepost($_POST, $_GET['post_id']);
         if($edit)
         {
-            $this->redirect('/profile/show');
+            $this->redirect('/post/show');
         }        
     }
 
@@ -80,11 +81,11 @@ class Post extends \Core\Controller
         if(UserPost::isUserPost($post_id))
         {
             UserPost::deletePost($post_id);
-            $this->redirect('/profile/show');      
+            $this->redirect('/post/show');      
         }
         else
         {
-            View::renderTemplate('profile/show.html');
+            $this->redirect('/post/show');
         }
 
     }
