@@ -9,8 +9,6 @@
         <h5><a  href="/post/add">Add a post</a></h5><br>
     {% endif %}
 
-
-
     {% if current_user.catogery == "Signup as student" %}
         Hello <b>{{ current_user.name }} </b>you are viewing post as invester.
  
@@ -18,49 +16,57 @@
         Hello {{ current_user.name }} you are viewing post as student.
     
     {% else %}
-        You can only view Emergency Posts. To add post or View other posts please
-        <a href="/signup/new">Sign up</a> or 
-        <a href="/login">log in</a>
-    
+        <p class="alert alert-info m-1">
+            You can only view Emergency Posts. To add post or View other posts please
+            <a class="btn btn-warning m-1" href="/signup/new">Sign up</a> or 
+            <a class="btn btn-warning m-1" href="/login">log in</a>
+        </p>
     {% endif %}
 
     
     
-    {% for details in postDetails %}
-        {% if details.catogery == 'Emergency Help' %}
-        <div class="w-50  mx-auto border p-4 my-4">
-            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
-            {% if current_user.id == details.user_id %}
-                <a href="/post/edit?post_id={{ details.id }}">edit</a>
-            {% endif %}
-            <pre class=" border">
-                <h3>{{ details.title }}</h3>
-                <p>{{ details.discription }}</p>
-                
-            </pre>
-            <!-- <button type="submit">Help</button> -->
+    <div class="justify-content-center d-flex">
+        <div class="row">
+            <div>                
+                {% for details in postDetails %}
+                    {% if details.catogery == 'Emergency Help' %}
+                        <div class="card text-dark bg-warning mb-3">
+                            <div class="card-header">
+                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                {% if current_user.id == details.user_id %}
+                                <a href="/post/edit?post_id={{ details.id }}">edit</a>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ details.title }}</h3>
+                                <p class="card-text">{{ details.discription }}</p>
+                            </div>
+                            <!-- <button type="submit">Help</button> -->
+                        </div>
+                    {% endif %}
+                    
+                    {% if details.catogery == 'Seeking to invest' and current_user.catogery == "Signup as student" %}
+                        <div class="card container">
+                            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
+                            <pre class=" border">
+                                <h3>{{ details.title }}</h3>
+                                <p>{{ details.discription }}</p>
+                            </pre>
+                        </div>
+                    {% endif %}
+                    
+                    {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as invester" %}
+                        <div class="card container">
+                            <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
+                            <pre class=" border">
+                                <h3>{{ details.title }}</h3>
+                                <p>{{ details.discription }}</p>
+                            </pre>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
-        {% endif %}
-
-        {% if details.catogery == 'Seeking to invest' and current_user.catogery == "Signup as student" %}
-            <div class="w-50  mx-auto border p-4 my-4">
-                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
-                <pre class=" border">
-                    <h3>{{ details.title }}</h3>
-                    <p>{{ details.discription }}</p>
-                </pre>
-            </div>
-        {% endif %}
-
-        {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as invester" %}
-            <div class="w-50  mx-auto border p-4 my-4">
-                <p><strong style = "font-size: large;">{{ details.name }}</strong> posted on <b>{{ details.catogery }}</b></p>
-                <pre class=" border">
-                    <h3>{{ details.title }}</h3>
-                    <p>{{ details.discription }}</p>
-                </pre>
-            </div>
-        {% endif %}
-    {% endfor %}
+    </div>
 
 {% endblock %}
