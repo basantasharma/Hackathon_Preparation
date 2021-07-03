@@ -32,9 +32,9 @@
             <div class="form-group">
                 <label for="sel1">Select Post Type:</label>
                 <select class="form-control" id="sel1" name="type" required>
-                    {% if current_user.is_student %}
+                    {% if current_user.catogery == "Signup as student" %}
                     <option value="Seeking for invester">Seeking for invester</option>
-                    {% elseif current_user.is_invester %}
+                    {% elseif current_user.catogery == "Signup as invester" %}
                     <option value="Seeking to invest">Seeking to invest</option>
                     {% endif %}
                     <option value="Emergency Help">Emergency Help</option>
