@@ -50,16 +50,16 @@ class Post extends \Core\Controller
     {
         $this->requireLogin();
         //$user = Auth::getUser();
-        if(UserPost::isUserPost($_GET['post_id']))
+        if(isset($_GET['post_id']) && UserPost::isUserPost($_GET['post_id']))
         {
             View::renderTemplate('post/edit.html',[
                 'post_details' => UserPost::getUserPostById($_GET['post_id'])
-                ]);        
+            ]);        
         }
         else
         {
             // $user = Auth::getUser();
-            $this->redirect('/profile/show');
+            View::renderTemplate('/404.html');
         }
     }
 

@@ -6,10 +6,12 @@
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for details in user %}
       <div class="col">
-        <div class="card text-dark bg-warning m-1 h-100">
-          <img src="/images/profile/{{ details.image }}" class="card-img-top bg-light" alt="...">
+        <div class="card text-dark bg-warning m-1 h-75">
+          <img src="/images/profile/{{ details.image }}" class="card-img-top bg-light" height="75%" alt="...">
           <div class="card-body">
-            <h5 class="card-title">{{ details.name }}</h5>
+            <a href="/people/profile-visit?id={{ details.id }}" style="text-decoration: none;" >
+              <h5 class="card-title text-dark">{{ details.name }}</h5>
+            </a>
             <p class="card-text">
               {{ details.gender }} <br>                
               {{ details.email }}  <br>

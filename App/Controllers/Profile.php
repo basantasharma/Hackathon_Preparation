@@ -42,17 +42,6 @@ class Profile extends Authenticated
         ]);
     }
 
-    //used for externally viewing profile only
-    public function viewAction()
-    {
-        $user = User::findByID($_GET['id']);
-        $post = UserPost::getPostByUserId($_GET['id']);
-        View::renderTemplate('Profile/show.html', [
-            'user' => $user,
-            'user_posts' => $post
-        ]);
-    }
-
     /**
      * Show the form for editing the profile
      *

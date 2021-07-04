@@ -19,7 +19,7 @@
             Hello {{ current_user.name }} you are viewing post as Invester.
         </p>
     {% else %}
-        <p class="alert alert-info m-1">
+        <p class="alert alert-info m-1 p-0">
             You can only view Emergency Posts. To add post or View other posts please
             <a class="btn btn-warning m-1" href="/signup/new">Sign up</a> or 
             <a class="btn btn-warning m-1" href="/login">log in</a>
@@ -35,7 +35,7 @@
                     {% if details.catogery == 'Emergency Help' %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
                                 {% if current_user.id == details.user_id %}
                                 <a href="/post/edit?post_id={{ details.id }}">edit</a>
                                 {% endif %}
@@ -51,7 +51,7 @@
                     {% if details.catogery == 'Seeking to invest' and current_user.catogery == "Signup as student" %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
                                 {% if current_user.id == details.user_id %}
                                 <a href="/post/edit?post_id={{ details.id }}">edit</a>
                                 {% endif %}
@@ -67,7 +67,7 @@
                     {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as invester" %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
                                 {% if current_user.id == details.user_id %}
                                 <a href="/post/edit?post_id={{ details.id }}">edit</a>
                                 {% endif %}
@@ -82,7 +82,7 @@
                     {% if current_user.id == details.user_id and details.catogery != "Emergency Help" %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
                                 {% if current_user.id == details.user_id %}
                                 <a href="/post/edit?post_id={{ details.id }}">edit</a>
                                 {% endif %}

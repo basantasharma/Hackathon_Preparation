@@ -20,27 +20,30 @@
         {% endif %}
     </dl>
     {% if user.id == current_user.id %}
-        <a href="/profile/edit?id={{user.id}}">Edit</a>
-    {% endif %}
-
-    <h1 class="text-center">Your Posts</h1>    
+        <a href="/profile/edit">Edit</a>
+    {% endif %}    
     <div class="justify-content-center d-flex">
         <div class="row">
-            {% for details in user_Posts %}
-                {% if details.user_id == current_user.id %}
-                    <div class="card text-dark bg-warning mb-3">
-                        <div class="card-header">
-                            <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
-                            <a href="/post/edit?post_id={{ details.id }}">edit</a>
-                        </div>
-                        <div class="card-body">
-                            <h3 class="card-title">{{ details.title }}</h3>
-                            <p class="card-text">{{ details.discription }}</p>
-                        </div>
-                        <!-- <button type="submit">Help</button> -->
-                    </div>                
-                {% endif %}            
-            {% endfor %}
+            <div>
+                {% if user.id == current_user.id %}
+                    <h1>Your posts</h1>
+                {% endif %}
+                {% for details in user_Posts %}
+                    {% if details.user_id == current_user.id %}
+                        <div class="card text-dark bg-warning mb-3">
+                            <div class="card-header">
+                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                                <a href="/post/edit?post_id={{ details.id }}">edit</a>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ details.title }}</h3>
+                                <p class="card-text">{{ details.discription }}</p>
+                            </div>
+                            <!-- <button type="submit">Help</button> -->
+                        </div>                
+                    {% endif %}            
+                {% endfor %}
+            </div>
         </div>
     </div>
 

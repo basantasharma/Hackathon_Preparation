@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+    <h1>Profile</h1>
+    <img src="/images/profile/{{ user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
+
+    <dl class="dl-horizontal">
+        <dt>Name</dt>
+        <dd>{{ user.name }}</dd>
+        <dt>email</dt>
+        <dd>{{ user.email }}</dd>
+        <dt>Signup Category</dt>
+        {% if user.catogery == "Signup as student" %}
+        <dd>Student</dd>
+        {% else %}
+        <dd>Invester</dd>
+        {% endif %}
+    </dl>
+    {% if user.id == current_user.id %}
+        <a href="/profile/edit">Edit</a>
+    {% endif %}    
+    <div class="justify-content-center d-flex">
+        <div class="row">
+            <div>
+                {% for details in user_posts %}
+                    {% if current_user.id == user.id %}
+                        <div class="card text-dark bg-warning mb-3">
+                            <div class="card-header">
+                                <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ user.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                {% if current_user.id == details.user_id %}
+                                <a href="/post/edit?post_id={{ details.id }}">edit</a>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ details.title }}</h3>
+                                <p class="card-text">{{ details.discription }}</p>
+                            </div>
+                            <!-- <button type="submit">Help</button> -->
+                        </div>
+                    {% else %}
+                        {% if details.catogery == "Emergency Help"  %}
+                            <div class="card text-dark bg-warning mb-3">
+                                <div class="card-header">
+                                    <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ user.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ details.title }}</h3>
+                                    <p class="card-text">{{ details.discription }}</p>
+                                </div>
+                                <!-- <button type="submit">Help</button> -->
+                            </div>
+                        {% endif %}
+                        {% if current_user %}
+                            {% if current_user.catogery == "Signup as student" and details.catogery == "Seeking to invest" %}
+                                <div class="card text-dark bg-warning mb-3">
+                                    <div class="card-header">
+                                        <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ user.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{ details.title }}</h3>
+                                        <p class="card-text">{{ details.discription }}</p>
+                                    </div>
+                                    <!-- <button type="submit">Help</button> -->
+                                </div>
+                            {% endif %}
+
+                            {% if current_user.catogery == "Signup as invester" and details.catogery == "Seeking for invester" %}
+                                <div class="card text-dark bg-warning mb-3">
+                                    <div class="card-header">
+                                        <a href="/people/profile-visit?id={{ details.user_id }}"><b>{{ user.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">{{ details.title }}</h3>
+                                        <p class="card-text">{{ details.discription }}</p>
+                                    </div>
+                                    <!-- <button type="submit">Help</button> -->
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}    
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
