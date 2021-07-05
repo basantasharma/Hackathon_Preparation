@@ -5,15 +5,18 @@ Edit Post
 {% endblock %}
 
 {% block body %}
-    <form method="post" action="/post/start-edit?post_id={{ post_details.id }}" id="formSignup">
-                
+
+<div style="text-align: center; padding-top:2%; align-items: center; border: black; border-radius: 7px; border-width: 0.4px;  " class="card"  >
+    <form method="post" action="/post/start-edit?post_id={{ post_details.id }}" style="width: 50%; box-shadow: 0.2px 2px 7px orange; padding: 20px; "  id="formSignup">
+
         <div class="form-group">
-            <label for="inputTitle">Title</label>
-            <input id="inputTitle" name="title" placeholder="Title" autofocus required class="form-control"  value="{{post_details.title}}"/>
+            <label for="inputTitle" style="color: orange;">Title</label>
+            <input id="inputTitle" style="border-radius: 20px;" name="title" placeholder="Title" autofocus required class="form-control"
+                value="{{post_details.title}}" />
         </div>
         <div class="form-group">
-            <label for="sel1">Select Post Type:</label>
-            <select class="form-control" id="sel1" name="type" required>
+            <label for="sel1" style="color: orange;">Select Post Type:</label>
+            <select style="border-radius: 20px;" class="form-control" id="sel1" name="type" required>
                 {% if current_user.catogery == "Signup as student" %}
                 <option value="Seeking for invester">Seeking for invester</option>
                 {% elseif current_user.catogery == "Signup as invester" %}
@@ -23,16 +26,54 @@ Edit Post
             </select>
         </div>
         <div class="form-group">
-            <label for="inputPostDetails">Describe your post brifely.</label>
-            <textarea rows="10" id="inputPostDetails" name="details"  placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need." 
-            required type="text" class="form-control" >{{ post_details.discription }}</textarea>
-        </div>        
-        
-        <button type="submit" class="btn btn-defult">Update post</button> 
-        <a href="/post/delete-post?post_id={{ post_details.id }}">Delete Post</a>       
-    </form>
+            <label for="inputPostDetails" style="color: orange;">Describe your post brifely.</label>
+            <textarea rows="10" id="inputPostDetails" name="details" style="border-radius: 20px;"
+                placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need."
+                required type="text" class="form-control">{{ post_details.discription }}</textarea>
+        </div>
+        <ul style=" list-style-type: none; ">
+            <li> <button type="submit" class=" upbtn btn btn-defult">Update post</button> </li>
+            <li> <a href="/post/delete-post?post_id={{ post_details.id }}" class="upbtn">Delete Post</a> </li>
+        </ul>
 
-    
+
+
+
+
+    </form>
+</div>
+
+
+
+<style>
+    .upbtn {
+
+
+        color: black;
+
+        background-color: orange;
+        border-radius: 40px;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin: 10px;
+        text-decoration: none;
+
+
+
+    }
+
+    .upbtn:hover {
+        background-color: rgb(255, 198, 93);
+        color: white;
+    }
+</style>
+
+
+
+
+
 
 
 {% endblock %}

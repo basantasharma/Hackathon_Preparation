@@ -3,16 +3,20 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
+<div style="text-align: center;">
 
-    <h1>Profile</h1>
-    <img src="/images/profile/{{ user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
+    <h1 style="justify-content: center; text-align: center; color: orange;">Profile</h1>
+    <div style="height: 200px; width: 200px;   border-radius: 50%;  display: inline-block; ">
+        <img src="/images/profile/{{ user.image }}" class="img-fluid border border-additive"
+            style="height: 200px; width: 200px; object-fit: cover;   border-radius: 50%; " alt="Profile picture">
+    </div>
 
     <dl class="dl-horizontal">
-        <dt>Name</dt>
+        <dt style="color: orange;">Name</dt>
         <dd>{{ user.name }}</dd>
-        <dt>email</dt>
+        <dt style="color: orange;">Email</dt>
         <dd>{{ user.email }}</dd>
-        <dt>Signup Category</dt>
+        <dt style="color: orange;">Signup Category</dt>
         {% if user.catogery == "Signup as student" %}
         <dd>Student</dd>
         {% else %}
@@ -20,31 +24,56 @@
         {% endif %}
     </dl>
     {% if user.id == current_user.id %}
-        <a href="/profile/edit">Edit</a>
-    {% endif %}    
-    <div class="justify-content-center d-flex">
-        <div class="row">
-            <div>
-                {% if user.id == current_user.id %}
-                    <h1>Your posts</h1>
-                {% endif %}
-                {% for details in user_Posts %}
-                    {% if details.user_id == current_user.id %}
-                        <div class="card text-dark bg-warning mb-3">
-                            <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
-                                <a href="/post/edit?post_id={{ details.id }}">edit</a>
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">{{ details.title }}</h3>
-                                <p class="card-text">{{ details.discription }}</p>
-                            </div>
-                            <!-- <button type="submit">Help</button> -->
-                        </div>                
-                    {% endif %}            
-                {% endfor %}
-            </div>
+    <a href="/profile/edit" class="buttonedit">Edit</a>
+{% endif %}    
+<div class="justify-content-center d-flex">
+    <div class="row">
+        <div>
+            {% if user.id == current_user.id %}
+                <h1 style="color: orange;">Your posts</h1>
+            {% endif %}
+            {% for details in user_Posts %}
+                {% if details.user_id == current_user.id %}
+                    <div class="card text-dark bg-warning mb-3">
+                        <div class="card-header">
+                            <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
+                            <a href="/post/edit?post_id={{ details.id }}" class="buttonedit">edit</a>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">{{ details.title }}</h3>
+                            <p class="card-text">{{ details.discription }}</p>
+                        </div>
+                        <!-- <button type="submit">Help</button> -->
+                    </div>                
+                {% endif %}            
+            {% endfor %}
         </div>
     </div>
+</div>
+
+ 
+
+</div>
+
+
+<style>
+    .buttonedit {
+        background-color: orange;
+        text-decoration: none;
+        color: black;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-radius: 50px;
+
+    }
+
+    .buttonedit:hover {
+        background-color: rgb(241, 188, 90);
+        color: white;
+    }
+</style>
+
 
 {% endblock %}

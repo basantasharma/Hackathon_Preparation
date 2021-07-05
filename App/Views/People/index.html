@@ -3,41 +3,50 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    {% for details in user %}
-      <div class="col">
-        <div class="card text-dark bg-warning m-1 h-75">
-          <img src="/images/profile/{{ details.image }}" class="card-img-top bg-light" height="75%" alt="...">
-          <div class="card-body">
-            <a href="/people/profile-visit?id={{ details.id }}" style="text-decoration: none;" >
-              <h5 class="card-title text-dark">{{ details.name }}</h5>
-            </a>
-            <p class="card-text">
-              {{ details.gender }} <br>                
-              {{ details.email }}  <br>
-              {{ details.catogery }}
-            </p>
-          </div>
-        </div>
+<div class="row row-cols-1 row-cols-md-3 g-4" style="justify-content: center; text-align: center;">
+  {% for details in user %}
+  <div class="col ">
+    <div class="card text-dark bg-warning m-1 h-100 "
+      style=" box-shadow: 0.02px 3px 5px orange ;  border-radius: 20px;  align-items: center;">
+      <img src="/images/profile/{{ details.image }}" class="card-img-top bg-light"
+        style="height: 300px;  width: 300px;  border-radius: 50%; object-fit: cover; align-items: center;" alt="...">
+      <div class="card-body"
+        style="color: black; border-radius:0px 0px 20px 20px ; width: 100%; background-color: rgb(255, 193, 78); object-fit: contain;  ">
+        <h5 class="card-title">{{ details.name }}</h5>
+        <p class="card-text">
+          {{ details.gender }} <br>
+          {{ details.email }} <br>
+          {{ details.catogery }} <br>
+          <a href="#" class="btn">View Full Profile</a>
+
+        </p>
       </div>
-    {% endfor %}
+    </div>
   </div>
-  {# <div class="card-group">
-    {% for details in user %}
-        <div class="card" style=" width: 18rem;">
-          <img src="/images/profile/{{ details.image }}" height='auto' class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">{{ details.name }}</h5>
-            <p class="card-text">
-              {{ details.gender }} <br>                
-              {{ details.email }}  <br>
-              {{ details.catogery }}
-            </p>
-            <div class="card-footer">
-              <a href="#" class="btn">View Full Profile</a>
-            </div>
-          </div>
-        </div>      
-    {% endfor %}
-  </div> #}
+  {% endfor %}
+</div>
+{# <div class="card-group">
+  {% for details in user %}
+  <div class="card" style="height: 90px;">
+    <a href="#" class="btn" style="color: black;">View Full Profile</a>
+    <img src="/images/profile/{{ details.image }}" height='auto' class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ details.name }}</h5>
+      <p class="card-text">
+
+        {{ details.gender }} <br>
+        {{ details.email }} <br>
+        {{ details.catogery }} <br>
+
+      </p>
+      <div class="card-footer">
+        <a href="#" class="btn">View Full Profile</a>
+
+
+
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div> #}
 {% endblock %}
