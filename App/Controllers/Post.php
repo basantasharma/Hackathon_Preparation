@@ -46,6 +46,19 @@ class Post extends \Core\Controller
         //var_dump($postDetails);
         
     }
+
+    public function emergencyAction()
+    {
+        $this->postModel = new UserPost();
+        $postDetails = $this->postModel::getPost();
+        View::renderTemplate('post/emergency.html',[
+            'postDetails' => $postDetails
+        ]);
+
+        //var_dump($postDetails);
+        
+    }
+
     public function EditAction()
     {
         $this->requireLogin();

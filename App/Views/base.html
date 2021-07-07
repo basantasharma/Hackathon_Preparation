@@ -117,7 +117,7 @@
                     </li>
                     {% if current_user %}
                     <li class="nav-item">
-                        <a class="btn logbtn me-2" href="#">Emergency</a>
+                        <a class="btn logbtn me-2" href="/post/emergency">Emergency</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn logbtn me-2" href="#">General</a>
@@ -354,18 +354,6 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
-
-    <script>
-        $(".img-social").hover(function () {
-            $(this).attr("src", function (index, attr) {
-                return attr.replace("bw.png", "reverse.png");
-            });
-        }, function () {
-            $(this).attr("src", function (index, attr) {
-                return attr.replace("reverse.png", "bw.png");
-            });
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
