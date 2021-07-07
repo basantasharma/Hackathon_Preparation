@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+
+    {% if current_user.catogery == "Signup as student" %}
+        <p class="alert alert-info m-1 p-0">
+            Hello <b>{{ current_user.name }} </b>you are viewing post as Student. Only emergency post can be found here.
+        </p>
+        
+    {% elseif current_user.catogery == "Signup as invester" %}
+        <p class="alert alert-info m-1 p-0">
+            Hello {{ current_user.name }} you are viewing post as Invester. Only emergency post can be found here.
+        </p>
+    {% else %}
+        <p class="alert alert-info m-1 p-0">
+            You can only view Emergency Posts. To add post or View other posts please
+            <a class="btn logbtn m-1" href="/signup/new">Sign up</a> or 
+            <a class="btn logbtn m-1" href="/login">log in</a>
+        </p>
+    {% endif %}
+
+    
+    
+    <div class="justify-content-center d-flex">
+        <div class="row">
+            <div>
+                {% if current_user %}            
+                    <h5 class="justify-content-center d-flex"><a class="btn logbtn mt-2" href="/post/add">Add a post</a></h5>
+                {% endif %}
+                {% for details in postDetails %}
+                    {% if details.catogery !== 'Emergency Help' %}
+                        <div class="card text-dark bg-warning mb-3">
+                            <div class="card-header">
+                                {% if current_user.id == details.user_id %}
+                                    <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                    <a class="logbtn" href="/post/edit?post_id={{ details.id }}">edit</a>
+                                {% else %}
+                                    <a class="logbtn" href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">{{ details.title }}</h3>
+                                <p class="card-text">{{ details.discription }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

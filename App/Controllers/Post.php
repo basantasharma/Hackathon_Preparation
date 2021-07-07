@@ -59,6 +59,19 @@ class Post extends \Core\Controller
         
     }
 
+    public function generalAction()
+    {
+        $this->requireLogin();
+        $this->postModel = new UserPost();
+        $postDetails = $this->postModel::getPost();
+        View::renderTemplate('post/general.html',[
+            'postDetails' => $postDetails
+        ]);
+
+        //var_dump($postDetails);
+        
+    }
+
     public function EditAction()
     {
         $this->requireLogin();
