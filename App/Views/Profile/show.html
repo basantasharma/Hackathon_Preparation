@@ -3,25 +3,39 @@
 {% block title %}Profile{% endblock %}
 
 {% block body %}
-
-    <h1>Profile</h1>
-    <img src="/images/profile/{{ user.image }}" class="img-fluid border border-additive" width="74" height="74" alt="Profile picture" >
-
-    <dl class="dl-horizontal">
-        <dt>Name</dt>
-        <dd>{{ user.name }}</dd>
-        <dt>email</dt>
-        <dd>{{ user.email }}</dd>
-        <dt>Signup Category</dt>
-        {% if user.catogery == "Signup as student" %}
-        <dd>Student</dd>
-        {% else %}
-        <dd>Invester</dd>
-        {% endif %}
-    </dl>
-    {% if user.id == current_user.id %}
-        <a href="/profile/edit">Edit</a>
-    {% endif %}    
+    <div class="" style="align-items: center; margin: 15px;;">
+        <div class=" mx-auto border p-2 my-0" style="border:orange; box-shadow: 5px 5px 5px orange; border-radius: 20px; margin-bottom: 10px;  justify-content: center;">
+            <div class="profile bg-dark">
+                <!-- <h1 style="color: orange;"> -->
+                    <img src="/images/profile/{{ user.image }}" class="" style="min-width: 100%; height: 300px; object-fit: cover; align-items: center; object-position: 100% 25%;" alt="Cover photo" >
+                <!-- </h1> -->
+                <div class="bottom-left">                    
+                    <img src="/images/profile/{{ user.image }}" class="img-thumbnail p-0" style="border: 5px solid orange; width:200px; height:200px; border-radius: 50%; object-fit: cover; align-items: left;" alt="Profile picture" >
+                </div>
+            </div>
+            <dl class="px-4 py-2">
+                <dt>Name</dt>
+                <dd>{{ user.name }}</dd>
+                <dt>Email</dt>
+                <dd>{{ user.email }}</dd>
+                <dt>Signup Category</dt>
+                {% if user.catogery == "Signup as student" %}
+                <dd>Student</dd>
+                {% else %}
+                <dd>Invester</dd>
+                {% endif %}
+                {% if user.id == current_user.id %}
+                    <a class="btn logbtn p-2" href="/profile/edit">Edit</a>
+                {% endif %}
+            </dl>
+            {% if user.id != current_user.id %}
+                <a class="btn logbtn" href="#">Message</a>                
+            {% endif %}
+            <a href="#" class="btn logbtn mx-3 p-2">Report</a>
+        </div>
+    </div>
+    
+    
     <div class="justify-content-center d-flex">
         <div class="row">
             <div>
@@ -32,14 +46,13 @@
                     {% if details.user_id == current_user.id %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
-                                <b>{{ details.name }}</b> posted on <b>{{ details.catogery }}</b>
-                                <a href="/post/edit?post_id={{ details.id }}">edit</a>
+                                <a class="logbtn" href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                <a class="logbtn" href="/post/edit?post_id={{ details.id }}">edit</a>
                             </div>
                             <div class="card-body">
                                 <h3 class="card-title">{{ details.title }}</h3>
                                 <p class="card-text">{{ details.discription }}</p>
                             </div>
-                            <!-- <button type="submit">Help</button> -->
                         </div>                
                     {% endif %}            
                 {% endfor %}

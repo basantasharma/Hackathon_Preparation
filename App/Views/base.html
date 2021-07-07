@@ -1,71 +1,379 @@
 <!DOCTYPE html>
-<html>
+<html class="bg-dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <title>
+        {% block title %}{% endblock %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="/css/styles.css" />
+
+    <style>
+        .logbtn {
+            background-color: orange;
+            color: black;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 8px;
+            margin: 0;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .logbtn:hover {
+            background-color: rgb(0, 0, 0);
+            color: orange;
+        }
+
+        .sbtn {
+            background-color: #ffc107;
+            color: black;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 8px;
+            margin: 0;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .sbtn:hover {
+            background-color: black;
+            color: #ffc107;
+        }
+
+        dt {
+            color: orange;
+        }
+
+        dd {
+            color: green;
+        }
+
+        .profile {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+        .bottom-left {
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+        }
+
+        b {
+            font-size: 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .img-social {
+            display: inline-block;
+            height: auto;
+            width: 40px;
+        }
+
+        .fb {
+            background: url('images/icons/fb_bw.png');
+        }
+
+        .fb:hover {
+            background: url('images/icons/fb_reverse.png');
+        }
+    </style>
+
+
 </head>
-<body>
-    <div class="">
-        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-            <div class="container-fluid">
-                <div class="navbar-brand">                 
-                    <a class="btn" href="/"><h6>INS G.</h6></a>          
-                </div>     
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                        
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/post/show">Post</a>
-                        </li>
-                        <form method="GET" action="/people/search" class="d-flex">
-                            <input name="search" class="form-control me-2" type="search" placeholder="Search" value="{{ searched }}" aria-label="Search">
-                            <!-- <button class="btn btn-default" type="submit">
-                            <i class="glyphicon glyphicon-search"></i>
-                            </button> -->
-                        </form>
-                    </ul>
-                    <ul class="navbar-nav">
-                        {% if current_user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/profile/show">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Log out</a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item" >
-                            <a class="nav-link" href="/signup/new">Sign up</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" href="/login">log in</a>
-                        </li>                         
-                        {% endif %}
-                    </ul>
-                </div>
+
+<body class="bg-dark text-warning" style="margin: 0px;">
+    <!-- <div class=""> -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <a class="btn logbtn" href="/post/show">INS G.</a>
             </div>
-        </nav>
-    </div>
-    {% for message in flash_messages %}
-        <div class="alert alert-{{ message.type }}">
-            {{ message.body }}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav m-auto">
+                    <form method="GET" action="/people/search" class="d-flex">
+                        <input name="search" class="form-control me-2" type="search" placeholder="Search"
+                            value="{{ searched }}" aria-label="Search">
+                        <!-- <button class="btn btn-default" type="submit">
+						                                <i class="glyphicon glyphicon-search"></i>
+						                            </button> -->
+                    </form>
+                    <li class="nav-item">
+                        <a class=" btn logbtn me-2" href="/">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="#">Emergency</a>
+                    </li>
+                    {% if current_user %}
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="#">General</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if current_user %}
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="/profile/show">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="/logout">Log out</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="/signup/new">Sign up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn logbtn me-2" href="/login">log in</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
+    </nav>
+    <!-- </div> -->
+    {% for message in flash_messages %}
+    <div class="alert alert-{{ message.type }}">
+        {{ message.body }}
+    </div>
     {% endfor %}
 
-    {% block body %}
-    {% endblock %}
+    <div class="" style="max-width: 1024px; margin:0 auto; min-height:300px;"> {% block body %}{% endblock %}
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <!-- Footer -->
+    <footer class="bg-warning text-center text-dark">
+        <!-- Grid container -->
+        <div class="container p-4">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Facebook -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/fb_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/fb_reverse.png'"
+                        onmouseout="this.src='/images/icons/fb_bw.png'" alt="fb" />
+                </a>
+
+                <!-- Twitter -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/tw_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/tw_reverse.png'"
+                        onmouseout="this.src='/images/icons/tw_bw.png'" alt="fb" />
+                </a>
+
+                <!-- Google -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/gog_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/gog_reverse.png'"
+                        onmouseout="this.src='/images/icons/gog_bw.png'" alt="fb" />
+                </a>
+
+                <!-- Instagram -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/ins_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/ins_reverse.png'"
+                        onmouseout="this.src='/images/icons/ins_bw.png'" alt="fb" />
+                </a>
+
+                <!-- Linkedin -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/lin_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/lin_reverse.png'"
+                        onmouseout="this.src='/images/icons/lin_bw.png'" alt="fb" />
+                </a>
+
+                <!-- Github -->
+                <a class="sbtn btn p-0 m-1 border-0" href="#!">
+                    <img src="/images/icons/git_bw.png" class="img-social" id="fb"
+                        onmouseover="this.src='/images/icons/gita_reverse.png'"
+                        onmouseout="this.src='/images/icons/git_bw.png'" alt="fb" />
+                </a>
+            </section>
+            <!-- Section: Social media -->
+
+            <!-- Section: Form -->
+            <section class="">
+                <form action="">
+                    <!--Grid row-->
+                    <div class="row d-flex justify-content-center">
+                        <!--Grid column-->
+                        <div class="col-auto">
+                            <p class="pt-2">
+                                <strong>Sign up for our newsletter</strong>
+                            </p>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-md-5 col-12">
+                            <!-- Email input -->
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="form5Example2" class="form-control"
+                                    placeholder="Enter your email" />
+                                <label class="form-label" for="form5Example2">Email address</label>
+                            </div>
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-auto">
+                            <!-- Submit button -->
+                            <button type="submit" class="btn logbtn mb-4">
+                                Subscribe
+                            </button>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+                    <!--Grid row-->
+                </form>
+            </section>
+            <!-- Section: Form -->
+
+            <!-- Section: Text -->
+            <section class="mb-4">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt distinctio earum
+                    repellat quaerat voluptatibus placeat nam, commodi optio pariatur est quia magnam
+                    eum harum corrupti dicta, aliquam sequi voluptate quas.
+                </p>
+            </section>
+            <!-- Section: Text -->
+
+            <!-- Section: Links -->
+            <section class="">
+                <!--Grid row-->
+                <div class="row" style="justify-content: center; text-align: center;">
+                    <!--Grid column-->
+                    <div class="col">
+                        <h5 class="text-uppercase">Links</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#!" class="logbtn">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 2</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 3</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col">
+                        <h5 class="text-uppercase">Links</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#!" class="logbtn">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 2</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 3</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col">
+                        <h5 class="text-uppercase">Links</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#!" class="logbtn">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 2</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 3</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col">
+                        <h5 class="text-uppercase">Links</h5>
+
+                        <ul class="list-unstyled mb-0">
+                            <li>
+                                <a href="#!" class="logbtn">Link 1</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 2</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 3</a>
+                            </li>
+                            <li>
+                                <a href="#!" class="logbtn">Link 4</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--Grid column-->
+                </div>
+                <!--Grid row-->
+            </section>
+            <!-- Section: Links -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright:
+            <a class="text-dark" href="/">INS GROUPS</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+
+    <script>
+        $(".img-social").hover(function () {
+            $(this).attr("src", function (index, attr) {
+                return attr.replace("bw.png", "reverse.png");
+            });
+        }, function () {
+            $(this).attr("src", function (index, attr) {
+                return attr.replace("reverse.png", "bw.png");
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    {% block footer %}
-    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
 </body>
+
 </html>

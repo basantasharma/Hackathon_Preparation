@@ -55,41 +55,46 @@
 {% endblock %}
 
 {% block body %}
+    <div class="justify-content-center d-flex" style="align-items: center; margin: 15px;;">
+        <div class="mx-auto border p-4 my-4" style="box-shadow: 5px 5px 5px orange; border-radius: 10px; margin-bottom: 10px;  justify-content: center;">
+            <h1 style="color: orange;">Edit Your Profile</h1>
+            {% if user.errors is not empty  %}
+                <p style="color: orange;">Errors:</p>
+                <ul>
+                    {% for error in user.errors %}
+                        <li style="color: rgb(255, 94, 0);">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-    <h1>Profile</h1>
+            <form method="post" id="formProfile" action="/profile/update" enctype="multipart/form-data">
 
-    {% if user.errors is not empty  %}
-        <p>Errors:</p>
-        <ul>
-            {% for error in user.errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+                <div class="form-group">
+                    <label for="inputName" style="color: orange;">Name</label>
+                    <input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" style="color: orange;">Email address</label>
+                    <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" disabled class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="image" style="color: orange;">Help us to identify you</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" style="color: orange;">Password</label>
+                    <input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock" class="form-control" />
+                    <span id="helpBlock" class="help-block" style="color: green;">Leave blank to keep current password</span>
+                </div>
+                <ul style="list-style-type: none; padding: 5px;">
+                    <li style="padding-bottom: 9px;"> 
+                        <button type="submit" class="btn logbtn btn-default">Save</button>
+                        <a href="/profile/show" class="btn logbtn btn-default">Cancel</a>
+                    </li>                      
+                </ul>
 
-    <form method="post" id="formProfile" action="/profile/update" enctype="multipart/form-data">
-
-        <div class="form-group">
-            <label for="inputName">Name</label>
-            <input id="inputName" name="name" placeholder="Name" value="{{ user.name }}" required class="form-control" />
+            </form>
         </div>
-        <div class="form-group">
-            <label for="inputEmail">Email address</label>
-            <input id="inputEmail" name="email" placeholder="email address" value="{{ user.email }}" required type="email" disabled class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="image">help us to identify you</label>
-            <input type="file" class="form-control" id="image" name="image">
-        </div>
-        <div class="form-group">
-            <label for="inputPassword">Password</label>
-            <input type="password" id="inputPassword" name="password" placeholder="Password" aria-describedby="helpBlock" class="form-control" />
-            <span id="helpBlock" class="help-block">Leave blank to keep current password</span>
-        </div>
-
-        <button type="submit" class="btn btn-default">Save</button>
-        <a href="/profile/show">Cancel</a>
-
-    </form>
+    </div>
 
 {% endblock %}

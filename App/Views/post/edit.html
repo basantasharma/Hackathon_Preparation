@@ -5,34 +5,39 @@ Edit Post
 {% endblock %}
 
 {% block body %}
-    <form method="post" action="/post/start-edit?post_id={{ post_details.id }}" id="formSignup">
+    <div class="justify-content-center" style="justify-content:center; align-items: center; margin: 15px; min-width:95%;">
+        <div class="mx-auto border p-4 my-4" style="box-shadow: 5px 5px 5px orange; border-radius: 10px; margin-bottom: 10px;  justify-content: center;">
+            <h1 style="color: orange;">Edit Post</h1>
+            
+            <form method="post" action="/post/start-edit?post_id={{ post_details.id }}">
                 
-        <div class="form-group">
-            <label for="inputTitle">Title</label>
-            <input id="inputTitle" name="title" placeholder="Title" autofocus required class="form-control"  value="{{post_details.title}}"/>
+                <div class="form-group">
+                    <label for="inputTitle">Title</label>
+                    <input id="inputTitle" name="title" placeholder="Title" autofocus required class="form-control"  value="{{post_details.title}}"/>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Select Post Type:</label>
+                    <select class="form-control" id="sel1" name="type" required>
+                        {% if current_user.catogery == "Signup as student" %}
+                        <option value="Seeking for invester">Seeking for invester</option>
+                        {% elseif current_user.catogery == "Signup as invester" %}
+                        <option value="Seeking to invest">Seeking to invest</option>
+                        {% endif %}
+                        <option value="Emergency Help">Emergency Help</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="inputPostDetails">Describe your post brifely.</label>
+                    <textarea rows="10" id="inputPostDetails" name="details"  placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need." 
+                    required type="text" class="form-control" >{{ post_details.discription }}</textarea>
+                </div>
+                <ul style="list-style-type: none; padding: 5px;">
+                    <li style="padding-bottom: 9px;">        
+                        <button type="submit" class="btn logbtn">Update post</button> 
+                        <a class="btn logbtn" href="/post/delete-post?post_id={{ post_details.id }}">Delete Post</a>
+                    </li>
+                </ul>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="sel1">Select Post Type:</label>
-            <select class="form-control" id="sel1" name="type" required>
-                {% if current_user.catogery == "Signup as student" %}
-                <option value="Seeking for invester">Seeking for invester</option>
-                {% elseif current_user.catogery == "Signup as invester" %}
-                <option value="Seeking to invest">Seeking to invest</option>
-                {% endif %}
-                <option value="Emergency Help">Emergency Help</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="inputPostDetails">Describe your post brifely.</label>
-            <textarea rows="10" id="inputPostDetails" name="details"  placeholder="If you are searching for invester describe your idea. If you are asking for help describe what kind of help you need." 
-            required type="text" class="form-control" >{{ post_details.discription }}</textarea>
-        </div>        
-        
-        <button type="submit" class="btn btn-defult">Update post</button> 
-        <a href="/post/delete-post?post_id={{ post_details.id }}">Delete Post</a>       
-    </form>
-
-    
-
-
+    </div>
 {% endblock %}
