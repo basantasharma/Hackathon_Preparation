@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="bg-dark">
+<html class="bg-dark" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -115,10 +115,10 @@
                     <li class="nav-item">
                         <a class=" btn logbtn me-2" href="/">About Us</a>
                     </li>
+                    {% if current_user %}
                     <li class="nav-item">
                         <a class="btn logbtn me-2" href="#">Emergency</a>
                     </li>
-                    {% if current_user %}
                     <li class="nav-item">
                         <a class="btn logbtn me-2" href="#">General</a>
                     </li>
