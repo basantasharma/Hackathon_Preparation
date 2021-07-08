@@ -30,7 +30,7 @@
                     <h5 class="justify-content-center d-flex"><a class="btn logbtn mt-2" href="/post/add">Add a post</a></h5>
                 {% endif %}
                 {% for details in postDetails %}
-                    {% if details.catogery !== 'Emergency Help' %}
+                    {% if details.catogery != 'Emergency Help' %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
                                 {% if current_user.id == details.user_id %}
