@@ -6,9 +6,9 @@
   <div class="row row-cols-1 row-cols-md-3 g-4" style="justify-content: center; text-align: center;">
     {% for details in user %}
       <div class="col">
-        <div class="card text-dark bg-warning m-1 h-75" style=" box-shadow: 0.02px 3px 5px orange ;  border-radius: 20px;  align-items: center;">
+        <div class="card text-dark bg-orange m-1 h-75" style=" border-radius: 20px;  align-items: center;">
           <img src="/images/profile/{{ details.image }}" class="card-img-top bg-light" style="height: 300px;  width: 300px;  border-radius: 50%; object-fit: cover; align-items: center;" alt="...">
-          <div class="card-body" style="color: black; border-radius:0px 0px 20px 20px ; width: 100%; background-color: rgb(255, 193, 78); object-fit: contain;">
+          <div class="card-body " style="color: black;  border-radius:0px 0px 20px 20px ; width: 100%; background-color: orange; object-fit: contain;">
             {% if current_user.id == details.id %}
               <a class="logbtn" href="/profile/show">
                 <b class="card-title">{{ details.name }}</b>

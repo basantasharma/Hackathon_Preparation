@@ -30,7 +30,7 @@
                     <h5 class="justify-content-center d-flex"><a class="btn logbtn mt-2" href="/post/add">Add a post</a></h5>
                 {% endif %}
                 {% for details in postDetails %}
-                    {% if details.catogery == 'Emergency Help' %}
+                    {# {% if details.catogery == 'Emergency Help' %}
                         <div class="card text-dark bg-warning mb-3">
                             <div class="card-header">
                                 {% if current_user.id == details.user_id %}
@@ -48,10 +48,10 @@
                             <div class="card-footer"><a class="btn logbtn" href="#">Help</a></div>
                             {% endif %}
                         </div>
-                    {% endif %}
+                    {% endif %} #}
                     
                     {% if details.catogery == 'Seeking to invest' and current_user.catogery == "Signup as student" %}
-                        <div class="card text-dark bg-warning mb-3">
+                        <div class="card text-dark bg-orange mb-3">
                             <div class="card-header">
                                 {% if current_user.id == details.user_id %}
                                     <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
@@ -72,27 +72,26 @@
                     {% endif %}
                     
                     {% if details.catogery == 'Seeking for invester' and current_user.catogery == "Signup as invester" %}
-                        <div class="card text-dark bg-warning mb-3">
-                            <div class="card-header">
-                                {% if current_user.id == details.user_id %}
-                                    <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
-                                    <a class="logbtn" href="/post/edit?post_id={{ details.id }}">edit</a>
-                                {% else %}
-                                    <a class="logbtn" href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
-                                {% endif %}
-                            </div>
-                            <div class="card-body">
-                                <h3 class="card-title">{{ details.title }}</h3>
-                                <p class="card-text">{{ details.discription }}</p>
-                            </div>
-                            {% if details.user_id != current_user.id %}
-                            <div class="card-footer"><a class="btn logbtn" href="#">Interested</a></div>
+                    <div class="card text-dark bg-orange mb-3">
+                        <div class="card-header">
+                            {% if current_user.id == details.user_id %}
+                                <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
+                                <a class="logbtn" href="/post/edit?post_id={{ details.id }}">edit</a>
+                            {% else %}
+                                <a class="logbtn" href="/people/profile-visit?id={{ details.user_id }}"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
                             {% endif %}
-                            <!-- <button type="submit">Help</button> -->
                         </div>
+                        <div class="card-body">
+                            <h3 class="card-title">{{ details.title }}</h3>
+                            <p class="card-text">{{ details.discription }}</p>
+                        </div>
+                        {% if details.user_id != current_user.id %}
+                        <div class="card-footer"><a class="btn logbtn" href="#">Interested</a></div>
+                        {% endif %}
+                    </div>
                     {% endif %}
                     {% if current_user.id == details.user_id and details.catogery != "Emergency Help" %}
-                        <div class="card text-dark bg-warning mb-3">
+                        <div class="card text-dark bg-orange mb-3">
                             <div class="card-header">
                                 {% if current_user.id == details.user_id %}
                                     <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>

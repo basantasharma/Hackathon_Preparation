@@ -31,7 +31,7 @@
                 {% endif %}
                 {% for details in postDetails %}
                     {% if details.catogery != 'Emergency Help' %}
-                        <div class="card text-dark bg-warning mb-3">
+                        <div class="card text-dark bg-orange mb-3">
                             <div class="card-header">
                                 {% if current_user.id == details.user_id %}
                                     <a class="logbtn" href="/profile/show"><b>{{ details.name }}</b></a> posted on <b>{{ details.catogery }}</b>
