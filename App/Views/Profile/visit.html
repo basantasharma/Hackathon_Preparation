@@ -29,7 +29,7 @@
                 {% endif %}
             </dl>
             {% if user.id != current_user.id and current_user%}
-                <a class="btn logbtn" href="#">Message</a>                
+                <a class="btn logbtn" href="/message/show?id={{ user.id }}">Message</a>                
             {% endif %}
             <a href="#" class="btn logbtn mx-3 p-2">Report</a>
         </div>

@@ -124,7 +124,7 @@ class UserPost extends \Core\Model
     //used when delete Action is called
     public static function deletePost($post_id)
     {
-        $sql = 'DELETE FROM user_posts WHERE post_id =:post_id';
+        $sql = 'DELETE FROM user_posts WHERE id =:post_id ';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);

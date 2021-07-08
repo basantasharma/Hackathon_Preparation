@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-   
+{% block title %}Message{% endblock %}
 
-    {% for msg in msgDetails %}
+{% block body %}
+
     {% if msg %}
-    <div>
-        <h1>{{ msg.msg_text }}</h1>
-    </div>
+        {% for msg in msgDetails %}
+        <div>
+            <h1>{{ msg.msg_text }}</h1>
+        </div>
+    
+        {% endfor %}
     {% else %}
-
-    <h1>No message Available</h1>
+        <h1>No message Available</h1>
     {% endif %}
-
-    {%endfor%}
-
-</body>
-</html>
+{% endblock %}
