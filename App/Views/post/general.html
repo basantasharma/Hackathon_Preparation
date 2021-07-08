@@ -44,6 +44,9 @@
                                 <h3 class="card-title">{{ details.title }}</h3>
                                 <p class="card-text">{{ details.discription }}</p>
                             </div>
+                            {% if details.user_id != current_user.id %}
+                            <div class="card-footer"><a class="btn logbtn" href="#">Interested</a></div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 {% endfor %}

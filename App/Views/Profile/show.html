@@ -20,7 +20,12 @@
                 <dd>{{ user.email }}</dd>
                 <dt>Signup Category</dt>
                 {% if user.catogery == "Signup as student" %}
-                <dd>Student</dd>
+                <dd>
+                    {% if user.name == "Basanta Sharma gyawali" %}
+                    Pro
+                    {% endif %}
+                    Student
+                </dd>
                 {% else %}
                 <dd>Invester</dd>
                 {% endif %}

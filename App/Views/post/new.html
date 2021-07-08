@@ -48,6 +48,9 @@
             
             <button type="submit" class="btn logbtn m-1">Publish post</button>
             <a class="btn logbtn m-1" href="/post/show">Cancle</a>
+            {% if current_user.name == "Basanta Sharma gyawali" %}
+            <a class="btn logbtn m-1" href="#">Send to Mentors for help</a>
+            {% endif %}
         </form>
         
     </div>
